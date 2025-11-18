@@ -103,7 +103,7 @@ movie-collection-api/
 ### Step 1 — Clone the Repository
 
 ```
-git clone https://github.com/YOUR-USERNAME/movie-collection-api.git
+git clone https://github.com/Alfeeee/Movie-Collection-Display-API.git
 ```
 
 ### Step 2 — Enter the Project Folder
@@ -153,7 +153,7 @@ node server.js
 
 ## 8. GitHub Repository Link
 
- [https://github.com/YOUR-USERNAME/movie-collection-api](https://github.com/YOUR-USERNAME/movie-collection-api)
+ [https://github.com/Alfeeee/Movie-Collection-Display-API.git](https://github.com/Alfeeee/Movie-Collection-Display-API.git)
 (Replace with your actual link)
 
 ---
