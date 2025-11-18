@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My Movie Collection</title>
+    <style>
+        body {
+            font-family: Arial;
+            padding: 20px;
+            background: #f2f2f2;
+        }
+        button {
+            margin: 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+        }
+        .movie-card {
+            background: white;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+        }
+        .classic {
+            color: white;
+            background: darkred;
+            padding: 3px 7px;
+            border-radius: 4px;
+            margin-left: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>My Movie Collection</h1>
+    <p>Browse the collection using the buttons below:</p>
+
+    <button onclick="fetchMovies()">View All Movies</button>
+    <button onclick="fetchClassics()">View Classic Movies</button>
+    <button onclick="fetchGenres()">View Genres</button>
+
+    <div id="output"></div>
+
+    <script>
+        async function fetchData(endpoint) {
+            try {
+                const res = await fetch(endpoint);
+                const data = await res.json();
+                return data;
+            } catch (err) {
+                document.getElementById("output").innerHTML = "Error fetching data!";
+            }
+        }
+
+        async function fetchMovies() {
+            const movies = await fetchData("/movies");
+            displayMovies(movies);
+        }
+
+        async function fetchClassics() {
+            const classics = await fetchData("/movies/classics");
+            displayMovies(classics);
+        }
+
+        async function fetchGenres() {
+            const data = await fetchData("/movies/genres");
+            const output = document.getElementById("output");
+
+            output.innerHTML = "<h2>Genres</h2>";
+
+            data.genres.forEach(genre => {
+                output.innerHTML += `<p><strong>${genre.name}</strong> — ${genre.movieCount} movies</p>`;
+            });
+        }
+
+        function displayMovies(movies) {
+            const output = document.getElementById("output");
+            output.innerHTML = "<h2>Movies</h2>";
+
+            movies.forEach(movie => {
+                output.innerHTML += `
+                    <div class="movie-card">
+                        <h3>${movie.title}
+                            ${movie.isClassic ? '<span class="classic">Classic</span>' : ''}
+                        </h3>
+                        <p><strong>Genre:</strong> ${movie.genre}</p>
+                        <p><strong>Release Year:</strong> ${movie.releaseYear}</p>
+                        <p><strong>Director:</strong> ${movie.director}</p>
+                    </div>
+                `;
+            });
+        }
+    </script>
+</body>
+</html>
